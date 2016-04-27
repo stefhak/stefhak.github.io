@@ -29,4 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     log('DOMContentLoaded');
     console.info(`controller: ${navigator.serviceWorker.controller}`);
 
+    if (navigator.connection) {
+        for (let i in navigator.connection) {
+            log(i + "   " + navigator.connection[i]);
+        }
+    }
+
 });
