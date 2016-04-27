@@ -1,5 +1,6 @@
 'use strict';
 
+let daPort;
 
 self.addEventListener('install', () => {
     console.info('install event!');
@@ -12,9 +13,8 @@ self.addEventListener('activate', evt => {
         self.clients.claim();
     }
 
-    const expectedCacheNames = Object.keys(cacheNames).map(name => cacheNames[name]);
 
-    evt.waitUntil(
+/*    evt.waitUntil(
         caches.keys().then(names =>
             Promise.all(
                 names.map(cacheName => {
@@ -26,11 +26,18 @@ self.addEventListener('activate', evt => {
                 })
             )
         )
-    );
+    );*/
 });
 
 self.addEventListener('message', evt => {
+    daPort = evt.ports[0];
     evt.ports[0].postMessage('pong');
+    if (navigator.connection) {
+        evt.ports[0].postMessage('pangpang');
+    } else {
+        evt.ports[0].postMessage('no pangpang');
+
+    }
     /*if (evt.data.prefetch) {
         const prefetchMap = evt.data.prefetch;
         prefetcher.fetch(prefetchMap, resource => {
