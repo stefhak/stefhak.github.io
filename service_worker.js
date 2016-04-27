@@ -33,8 +33,8 @@ self.addEventListener('message', evt => {
     daPort = evt.ports[0];
     evt.ports[0].postMessage('pong');
     if (navigator.connection) {
-        evt.ports[0].postMessage('pangpangpng');
-        navigator.addEventListener('change', () => {
+        evt.ports[0].postMessage('pangpangpngpang');
+        navigator.connection.addEventListener('change', () => {
             evt.ports[0].postMessage('network change event fired');
         });
     } else {
