@@ -39,7 +39,11 @@ self.addEventListener('message', evt => {
         });
     } else {
         evt.ports[0].postMessage('no pangpang');
-
+    }
+    if (navigator.webkitPersistentStorage) {
+        evt.ports[0].postMessage('SW got webkitPersistentStorage');
+    } else {
+        evt.ports[0].postMessage('SW hasnt got webkitPersistentStorage');     
     }
     /*if (evt.data.prefetch) {
         const prefetchMap = evt.data.prefetch;

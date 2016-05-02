@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i in navigator.connection) {
             log(i + "   " + navigator.connection[i]);
         }
-    }
+    };
+
+    if (navigator.webkitPersistentStorage) {
+        log('Page got webkitPersistentStorage');
+    } else {
+        log('Page hasnt got webkitPersistentStorage');     
+    };
+
 
 });
