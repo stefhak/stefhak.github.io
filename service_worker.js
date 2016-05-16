@@ -57,19 +57,19 @@ self.addEventListener('message', evt => {
                     evt.ports[0].postMessage('SWs box is not persisted');
 
             }).catch(error => {
-                console.error(`Storage persisted error: ${error}`);
+                console.error('Storage persisted error');
             });
-            navigator.storage.persist().then(persi => {
-                if (persi)
+            navigator.storage.persist().then(persis => {
+                if (persis)
                     evt.ports[0].postMessage('SWs box was allowed to be persisted')
                 else
                     evt.ports[0].postMessage('SWs box was not allowed to be persisted');
 
             }).catch(error => {
-                console.error(`Storage persist error: ${error}`);
+                console.error('Storage persist error');
             });
         }).catch(error => {
-            console.error(`Storage error: ${error}`);
+            console.error('Storage error');
         });
 
     }
