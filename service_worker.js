@@ -45,6 +45,16 @@ self.addEventListener('message', evt => {
     } else {
         evt.ports[0].postMessage('SW hasnt got webkitPersistentStorage');     
     }
+
+    if (navigator.storage) {
+        navigator.storage.estimate().then(info => {
+        evt.ports[0].postMessage('SW got storage quota');
+        evt.ports[0].postMessage('SW got storage quota');
+        }).catch(error => {
+            console.error(`Prefetch error: ${error}`);
+        });
+
+    }
     /*if (evt.data.prefetch) {
         const prefetchMap = evt.data.prefetch;
         prefetcher.fetch(prefetchMap, resource => {
