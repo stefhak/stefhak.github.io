@@ -48,7 +48,7 @@ self.addEventListener('message', evt => {
 
     if (navigator.storage) {
         navigator.storage.estimate().then(info => {
-        evt.ports[0].postMessage('SW got storage quota');
+        evt.ports[0].postMessage('SW got storage quota ' + info.quota);
         evt.ports[0].postMessage('SW got storage quota');
         }).catch(error => {
             console.error(`Prefetch error: ${error}`);
