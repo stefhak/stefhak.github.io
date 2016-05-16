@@ -48,10 +48,28 @@ self.addEventListener('message', evt => {
 
     if (navigator.storage) {
         navigator.storage.estimate().then(info => {
-        evt.ports[0].postMessage('SW got storage quota ' + info.quota);
-        evt.ports[0].postMessage('SW got storage quota');
+            evt.ports[0].postMessage('SW got storage quota ' + info.quota);
+            evt.ports[0].postMessage('SW uses storage ' + info.usage);
+            navigator.storage.persisted().then(persi => {
+                if (persi)
+                    evt.ports[0].postMessage('SWs box is persisted')
+                else
+                    evt.ports[0].postMessage('SWs box is not persisted');
+
+            }).catch(error => {
+                console.error(`Storage persisted error: ${error}`);
+            });
+            navigator.storage.persist().then(persi => {
+                if (persi)
+                    evt.ports[0].postMessage('SWs box was allowed to be persisted')
+                else
+                    evt.ports[0].postMessage('SWs box was not allowed to be persisted');
+
+            }).catch(error => {
+                console.error(`Storage persist error: ${error}`);
+            });
         }).catch(error => {
-            console.error(`Prefetch error: ${error}`);
+            console.error(`Storage error: ${error}`);
         });
 
     }
