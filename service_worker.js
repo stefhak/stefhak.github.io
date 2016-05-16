@@ -59,7 +59,7 @@ self.addEventListener('message', evt => {
             }).catch(error => {
                 console.error('Storage persisted error');
             });
-            if (navigator.storage.persist)
+            if (navigator.storage.persist) {
                 navigator.storage.persist().then(persis => {
                     if (persis)
                         evt.ports[0].postMessage('SWs box was allowed to be persisted')
