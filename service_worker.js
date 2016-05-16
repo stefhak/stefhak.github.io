@@ -59,15 +59,18 @@ self.addEventListener('message', evt => {
             }).catch(error => {
                 console.error('Storage persisted error');
             });
-            navigator.storage.persist().then(persis => {
-                if (persis)
-                    evt.ports[0].postMessage('SWs box was allowed to be persisted')
-                else
-                    evt.ports[0].postMessage('SWs box was not allowed to be persisted');
+            if (navigator.storage.persist)
+                navigator.storage.persist().then(persis => {
+                    if (persis)
+                        evt.ports[0].postMessage('SWs box was allowed to be persisted')
+                    else
+                        evt.ports[0].postMessage('SWs box was not allowed to be persisted');
 
-            }).catch(error => {
-                console.error('Storage persist error');
-            });
+                }).catch(error => {
+                    console.error('Storage persist error');
+                });
+            } else 
+                console.error('no navigator.storage.persist() methong avialable in SW');
         }).catch(error => {
             console.error('Storage error');
         });
