@@ -34,6 +34,8 @@ self.addEventListener('message', evt => {
     evt.ports[0].postMessage('pong');
     if (navigator.connection) {
         evt.ports[0].postMessage('pangpangpngpang');
+        evt.ports[0].postMessage('netw type: ' + navigator.connection.type);
+        evt.ports[0].postMessage('netw downlinkmax: ' + navigator.connection.downlinkMax);
         navigator.connection.addEventListener('change', () => {
             evt.ports[0].postMessage('network change event fired');
         });
